@@ -107,12 +107,22 @@ export default function Login() {
                 {formik.errors.password}
               </div>
             ) : null}
-            <Link
-              to={"/ForgetPassword"}
-              className="py-3 text-sm hover:text-blue-500 flex justify-end"
-            >
-              Forget Password?
-            </Link>
+
+            {formik.errors.password && formik.touched.password ? (
+              <Link
+                to={"/ForgetPassword"}
+                className="pt-7 text-sm hover:text-blue-500 flex justify-end"
+              >
+                Forget Password?
+              </Link>
+            ) : (
+              <Link
+                to={"/ForgetPassword"}
+                className="text-sm hover:text-blue-500 flex justify-end"
+              >
+                Forget Password?
+              </Link>
+            )}
           </div>
 
           <div className="flex gap-4 items-center">
