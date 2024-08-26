@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.row {
+  @apply flex flex-wrap py-5 pb-36 px-3;
+}
+
+.btn {
+  @apply bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg w-full;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.product .btn {
+  transition: transform 1s, opacity 1s;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.product:hover .btn {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.product .icon {
+  transition: transform 1s, opacity 1s;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.product:hover .icon {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.product {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.product:hover {
+  border-color: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+.brand {
+  filter: grayscale(0.3);
+  transition: transform 0.5s, filter 0.5s 0.1s;
+}
+.brand:hover {
+  transform: scale(1.05);
+  filter: grayscale(0);
+}
+.categoryList {
+  transition: transform 0.5s;
+}
+.categoryList:hover {
+  transform: scale(1.05);
+}
