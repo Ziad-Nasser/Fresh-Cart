@@ -5,6 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { CartContext } from "../../Context/CartContext";
 import useBrands from "../../Hooks/useBrands";
+import { WishListContext } from "../../Context/WishListContext";
 
 export default function BrandDetails() {
   const { id } = useParams();
@@ -12,10 +13,16 @@ export default function BrandDetails() {
   const [products, setProducts] = useState([]);
   const { addProductToCart, setItemsNumber, ItemsNumber } =
     useContext(CartContext);
+  let { addToWishlist, deleteProduct, productWishIds } =
+    useContext(WishListContext);
   const [loading, setLoading] = useState(false);
+  const [cartLoading, setCartLoading] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
   let { isLoading } = useBrands();
+  const [currentId, setCurrentId] = useState(0);
 
   let getBrand = (id) => {
+    setLoading(true);
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products?brand=${id}`)
       .then((res) => {
@@ -24,21 +31,52 @@ export default function BrandDetails() {
       })
       .catch((err) => {
         return err;
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
+
   async function addToCart(id) {
-    toast.promise(addProductToCart(id), {
-      loading: "Loading",
-      success: "Product added to cart successfully",
-      error: "Error in add Product try again ",
-    });
-    setItemsNumber(ItemsNumber + 1);
+    setCartLoading(true);
+    setCurrentId(id);
+    try {
+      await toast.promise(addProductToCart(id), {
+        loading: "Loading",
+        success: "Product added to cart successfully",
+        error: "Error in add Product try again",
+      });
+      setItemsNumber(ItemsNumber + 1);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setCartLoading(false);
+    }
   }
+
+  let toggleWishlist = async (id) => {
+    setCurrentId(id);
+    setWishlistLoading(true);
+    try {
+      if (productWishIds.includes(id)) {
+        await deleteProduct(id);
+        toast.success("Product removed from wishlist");
+      } else {
+        await addToWishlist(id);
+        toast.success("Product added to wishlist");
+      }
+    } catch (error) {
+      toast.error("Error updating wishlist");
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
+
   useEffect(() => {
     getBrand(id);
   }, [id]);
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-emerald-500"></div>
@@ -62,9 +100,28 @@ export default function BrandDetails() {
                 className=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 p-2"
               >
                 <div className="categoryList product relative p-1 bg-white shadow rounded-lg">
+                  <button
+                    onClick={() => toggleWishlist(product.id)}
+                    className="absolute top-12 right-2 z-10"
+                    disabled={wishlistLoading && currentId === product.id}
+                  >
+                    {wishlistLoading && currentId === product.id ? (
+                      <div className="bg-gray-800 p-2 rounded">
+                        <i className="fas fa-spinner fa-spin text-emerald-400"></i>
+                      </div>
+                    ) : (
+                      <i
+                        className={`icon fas fa-heart text-2xl bg-gray-800 p-2 rounded ${
+                          productWishIds.includes(product.id)
+                            ? "text-red-500"
+                            : "text-gray-500"
+                        }`}
+                      ></i>
+                    )}
+                  </button>
                   <i
                     onClick={() => addToCart(product.id)}
-                    className="fa-solid fa-cart-plus p-2 rounded bg-gray-800 text-white text-xl absolute top-2 right-2 shadow cursor-pointer"
+                    className=" icon fa-solid fa-cart-plus p-2 rounded bg-gray-800 text-white text-xl absolute top-2 right-2 shadow cursor-pointer"
                   ></i>
                   <Link
                     to={`/productdetails/${product.id}/${product.category.name}`}
@@ -112,8 +169,12 @@ export default function BrandDetails() {
                       </p>
                     </div>
                   </Link>
-                  <button onClick={() => addToCart(product.id)} className="btn">
-                    {loading && currentId == product.id ? (
+                  <button
+                    onClick={() => addToCart(product.id)}
+                    className="btn"
+                    disabled={cartLoading && currentId === product.id}
+                  >
+                    {cartLoading && currentId === product.id ? (
                       <i className="fas fa-spinner fa-spin"></i>
                     ) : (
                       "Add To Cart"

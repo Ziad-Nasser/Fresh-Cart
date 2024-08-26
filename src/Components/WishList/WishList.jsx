@@ -70,7 +70,7 @@ export default function WishList() {
       <Helmet>
         <title>WhishList</title>
       </Helmet>
-      <div className="container mx-auto px-4 py-8 max-w-5xl">
+      <div className="container mx-auto px-4 py-8 max-w-5xl pb-36">
         {productWish && productWish.length > 0 ? (
           <>
             <h2 className="text-center text-4xl text-emerald-600 font-bold capitalize mb-8">
