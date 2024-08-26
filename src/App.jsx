@@ -1,6 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createHashRouter,
+  Link,
+  RouterProvider,
+} from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
 import Home from "./Components/Home/Home";
 import Cart from "./Components/Cart/Cart";
@@ -30,7 +35,7 @@ import AllOrders from "./Components/AllOrders/AllOrders.jsx";
 
 let query = new QueryClient();
 
-let x = createBrowserRouter([
+let x = createHashRouter([
   {
     path: "",
     element: <Layout />,

@@ -48,7 +48,7 @@ const Payment = () => {
         {
           headers: headers,
           params: {
-            url: `http://localhost:5173`,
+            url: `https://Ziad-Nasser.github.io/Fresh-Cart/#`,
           },
         },
       );
