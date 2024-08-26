@@ -31,13 +31,13 @@ export default function Login() {
   }
 
   let validationSchema = Yup.object().shape({
-    email: Yup.string().email("invalid email").required("email is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
       .matches(
-        /^[^\w\d\s](?=.*[A-Z])(?=.*[a-z])(?=.*\d)[\w\d\S]{6,}[^\w\d\s]$/,
-        "password should be between 6 and 10 char",
+        /^.*(?=.{6,})(?=.*[a-z])(?=.*\d).*$/,
+        "Password must contain at least 6 characters, including at least one lowercase letter and one number",
       )
-      .required("password is required"),
+      .required("Password is required"),
   });
 
   let formik = useFormik({
@@ -103,13 +103,13 @@ export default function Login() {
               Enter Your Password
             </label>
             {formik.errors.password && formik.touched.password ? (
-              <div className="absolute text-sm text-red-800 " role="alert">
+              <div className=" absolute text-sm text-red-800 " role="alert">
                 {formik.errors.password}
               </div>
             ) : null}
             <Link
               to={"/ForgetPassword"}
-              className="text-sm hover:text-blue-500 flex justify-end"
+              className="py-3 text-sm hover:text-blue-500 flex justify-end"
             >
               Forget Password?
             </Link>

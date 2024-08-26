@@ -68,7 +68,7 @@ export default function Register() {
           {ApiError}
         </div>
       ) : null}
-      <div className="my-5">
+      <div className="my-5 text-center">
         <h2 className="font-bold text-2xl text-emerald-600 mb-3">
           Register Now
         </h2>
