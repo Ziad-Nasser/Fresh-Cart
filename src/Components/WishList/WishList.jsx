@@ -59,8 +59,8 @@ export default function WishList() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-emerald-500"></div>
+      <div className="flex items-center justify-center h-screen">
+        <div className="w-32 h-32 border-t-2 border-b-2 rounded-full animate-spin border-emerald-500"></div>
       </div>
     );
   }
@@ -70,14 +70,14 @@ export default function WishList() {
       <Helmet>
         <title>WhishList</title>
       </Helmet>
-      <div className="container mx-auto px-4 py-8 max-w-5xl pb-36">
+      <div className="container max-w-5xl px-3 py-5 mx-auto pb-36">
         {productWish && productWish.length > 0 ? (
           <>
-            <h2 className="text-center text-4xl text-emerald-600 font-bold capitalize mb-8">
+            <h2 className="mb-8 text-4xl font-bold text-center capitalize text-emerald-600">
               Your Wishlist
             </h2>
-            <div className="bg-white shadow-md rounded-lg overflow-hidden">
-              <table className="w-full  text-base text-left text-gray-500">
+            <div className="overflow-hidden bg-white rounded-lg shadow-md">
+              <table className="w-full text-base text-left text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                   <tr>
                     <th scope="col" className="px-6 py-3">
@@ -104,7 +104,7 @@ export default function WishList() {
                         >
                           <img
                             src={product.imageCover}
-                            className="w-16 h-16 object-cover mr-4 rounded"
+                            className="object-cover w-16 h-16 mr-4 rounded"
                             alt={product.title}
                           />
                           <span>{product.title}</span>
@@ -114,16 +114,16 @@ export default function WishList() {
                         ${product.price}
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+                        <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
                           <button
                             onClick={(e) => moveToCart(product.id, e)}
-                            className="font-medium bg-emerald-600 hover:bg-emerald-800 text-white py-2 px-4 rounded-lg transition duration-300"
+                            className="px-4 py-2 font-medium text-white transition duration-300 rounded-lg bg-emerald-600 hover:bg-emerald-800"
                           >
                             Move to Cart
                           </button>
                           <button
                             onClick={(e) => removeFromWishlist(product.id, e)}
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                            className="px-4 py-2 font-bold text-white transition duration-300 bg-red-500 rounded-lg hover:bg-red-700"
                           >
                             Remove
                           </button>
@@ -134,16 +134,16 @@ export default function WishList() {
                 </tbody>
               </table>
             </div>
-            <div className="mt-6 flex justify-between">
+            <div className="flex justify-between mt-6">
               <button
                 onClick={clearWishlist}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                className="px-4 py-2 font-bold text-white transition duration-300 bg-red-500 rounded-lg hover:bg-red-700"
               >
                 Clear Wishlist
               </button>
               <Link
                 to="/products"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+                className="px-4 py-2 font-bold text-white transition duration-300 rounded-lg bg-emerald-600 hover:bg-emerald-700"
               >
                 Continue Shopping
               </Link>
@@ -151,12 +151,12 @@ export default function WishList() {
           </>
         ) : (
           <div className="text-center">
-            <h1 className="text-3xl text-red-700 font-bold mb-4">
+            <h1 className="mb-4 text-3xl font-bold text-red-700">
               Your Wishlist Is Empty
             </h1>
             <Link
               to="/products"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300"
+              className="px-4 py-2 font-bold text-white transition duration-300 rounded-lg bg-emerald-600 hover:bg-emerald-700"
             >
               Explore Products
             </Link>

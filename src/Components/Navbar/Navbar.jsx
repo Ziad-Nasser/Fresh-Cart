@@ -8,12 +8,12 @@ import { WishListContext } from "../../Context/WishListContext";
 const NavLink = ({ to, children, count, onClick }) => (
   <Link
     to={to}
-    className="relative group block py-2 px-3 text-gray-700 hover:bg-emerald-600 hover:text-white rounded-md transition-colors duration-200"
+    className="relative block px-3 py-2 text-gray-700 transition-colors duration-200 rounded-md group hover:bg-emerald-600 hover:text-white"
     onClick={onClick}
   >
     <span>{children}</span>
     {count > 0 && (
-      <div className="absolute top-0 right-0 -mt-1 -mr-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+      <div className="absolute top-0 right-0 flex items-center justify-center w-5 h-5 -mt-1 -mr-1 text-xs text-white bg-red-500 rounded-full">
         {count}
       </div>
     )}
@@ -23,7 +23,7 @@ const NavLink = ({ to, children, count, onClick }) => (
 const SocialIcon = ({ icon }) => (
   <a
     href="#"
-    className="text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+    className="text-gray-600 transition-colors duration-200 hover:text-emerald-600"
   >
     <i className={`fab fa-${icon} text-lg`}></i>
   </a>
@@ -52,15 +52,15 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md fixed top-0 right-0 left-0 z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="fixed top-0 left-0 right-0 z-20 bg-white shadow-md">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="" className="flex-shrink-0 flex items-center">
-              <img src={logo} className="h-8 w-auto" alt="Freshcart Logo" />
+            <Link to="" className="flex items-center flex-shrink-0">
+              <img src={logo} className="w-auto h-8" alt="Freshcart Logo" />
             </Link>
           </div>
-          <div className="hidden lg:flex items-center justify-center flex-1 space-x-4">
+          <div className="items-center justify-center flex-1 hidden space-x-4 lg:flex">
             {userLogin && (
               <>
                 <NavLink to="">Home</NavLink>
@@ -76,21 +76,21 @@ export default function Navbar() {
               </>
             )}
           </div>
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="items-center hidden space-x-4 lg:flex">
             <SocialIcon icon="facebook" />
             <SocialIcon icon="linkedin" />
             <SocialIcon icon="youtube" />
             <SocialIcon icon="tiktok" />
             <SocialIcon icon="twitter" />
             {userLogin && (
-              <div className="text-lg font-medium text-emerald-600 mr-4">
+              <div className="mr-4 text-lg font-medium text-emerald-600">
                 Hi, {userLogin.name}!
               </div>
             )}
             {userLogin ? (
               <button
                 onClick={signOut}
-                className="text-sm text-gray-700 py-1 px-2 hover:bg-red-600 hover:text-white rounded-md transition-colors duration-200"
+                className="px-4 py-2 text-sm text-white transition-colors duration-200 bg-red-600 rounded-md hover:bg-red-700"
               >
                 Sign out
               </button>
@@ -98,33 +98,33 @@ export default function Navbar() {
               <>
                 <Link
                   to="login"
-                  className="text-sm text-gray-700 py-1 px-2 hover:bg-emerald-600 hover:text-white rounded-md transition-colors duration-200"
+                  className="px-4 py-2 text-sm text-white transition-colors duration-200 rounded-md bg-emerald-500 hover:bg-emerald-600"
                 >
                   Login
                 </Link>
                 <Link
                   to="register"
-                  className="text-sm bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200"
+                  className="px-4 py-2 text-sm text-white transition-colors duration-200 bg-blue-600 rounded-md hover:bg-blue-700"
                 >
                   Register
                 </Link>
               </>
             )}
           </div>
-          <div className="lg:hidden flex items-center">
+          <div className="flex items-center lg:hidden">
             {userLogin && (
-              <div className="text-sm font-medium text-emerald-600 mr-4">
+              <div className="mr-4 text-sm font-medium text-emerald-600">
                 Hi, {userLogin.name.split(" ")[0]}!
               </div>
             )}
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-emerald-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
+              className="inline-flex items-center justify-center p-2 text-gray-700 rounded-md hover:text-emerald-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
             >
               <span className="sr-only">Open main menu</span>
               {!isMenuOpen ? (
                 <svg
-                  className="block h-6 w-6"
+                  className="block w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -140,7 +140,7 @@ export default function Navbar() {
                 </svg>
               ) : (
                 <svg
-                  className="block h-6 w-6"
+                  className="block w-6 h-6"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -188,7 +188,7 @@ export default function Navbar() {
                 </NavLink>
               </>
             )}
-            <div className="flex justify-center space-x-4 py-2">
+            <div className="flex justify-center py-2 space-x-4">
               <SocialIcon icon="facebook" />
               <SocialIcon icon="linkedin" />
               <SocialIcon icon="youtube" />
@@ -198,7 +198,7 @@ export default function Navbar() {
             {userLogin ? (
               <button
                 onClick={signOut}
-                className="block w-full text-left py-2 px-3 text-gray-700 hover:bg-emerald-600 hover:text-white rounded-md transition-colors duration-200"
+                className="block w-full px-3 py-2 text-left text-gray-700 transition-colors duration-200 rounded-md hover:bg-emerald-600 hover:text-white"
               >
                 Sign out
               </button>
@@ -206,14 +206,14 @@ export default function Navbar() {
               <>
                 <Link
                   to="login"
-                  className="block w-full text-left py-2 px-3 text-gray-700 hover:bg-emerald-600 hover:text-white rounded-md transition-colors duration-200"
+                  className="block w-full px-3 py-2 text-left text-gray-700 transition-colors duration-200 rounded-md hover:bg-emerald-600 hover:text-white"
                   onClick={closeMenu}
                 >
                   Login
                 </Link>
                 <Link
                   to="register"
-                  className="block w-full text-left py-2 px-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-md transition-colors duration-200"
+                  className="block w-full px-3 py-2 text-left text-white transition-colors duration-200 rounded-md bg-emerald-600 hover:bg-emerald-700"
                   onClick={closeMenu}
                 >
                   Register

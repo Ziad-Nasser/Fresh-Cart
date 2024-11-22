@@ -1,10 +1,18 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute(props) {
-  if (localStorage.getItem("userToken")) {
+  const location = useLocation();
+  const isAuthenticated = Boolean(localStorage.getItem("userToken"));
+  const isHomePage = location.pathname === "/" || location.pathname === "/home";
+
+  if (isHomePage) {
+    return props.children;
+  }
+
+  if (isAuthenticated) {
     return props.children;
   } else {
-    return <Navigate to={"/login"} />;
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 }
